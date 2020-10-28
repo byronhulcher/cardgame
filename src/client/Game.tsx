@@ -10,7 +10,7 @@ import {
 import { GameLogic } from './GameLogic'
 
 /* All the rendered components that we'll be showing to the player */
-const Game: React.FC = () => {
+export const Game: React.FC = () => {
   const gameActions = useActions(GameLogic) as GameActions
   const gameState = useValues(GameLogic) as GameState
 
