@@ -4,7 +4,27 @@
 
 body {
   font-family: helvetica, arial, sans-serif;
-  margin: 25px;
+  margin: 25px 25px 25px 0;
+  max-height: 100vh;
+  max-width: 100vw;
+  border-left: 0;
+  border-right: 0;
+}
+
+body > * {
+  margin-left: 25px;
+}
+
+.row-wrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -25px;
+}
+
+.row-wrap > * {
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 h1 {

@@ -38,6 +38,7 @@ module.exports = {
   },
   devServer: {
     contentBase: './public',
-    publicPath: '/dist'
+    publicPath: '/dist',
+    port: 3000
   },
 };
