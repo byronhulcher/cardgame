@@ -1,57 +1,63 @@
-enum Player {
+export enum Player {
   One = 0,
   Two = 1
 }
 
-enum Card {
+export enum Card {
   Sac1RGet1V,
+  Sac4RGet6R,
   Remove2R,
   Gain1R
 }
 
-type CardData = {
+type CardProperties = {
   displayedName?: string
   displayedText?: string
   symbol?: string
-  updateResourcePoints?(victoryPoints: VictoryPointsTuple, player: Player)
-  updateVictoryPoints?(victoryPoints: VictoryPointsTuple, player: Player)
 }
 
-type CardDataWithName = CardData & {
+export type CardFunctions = {
+  updateResourcePoints(resourcePoints: ResourcePointsTuple, player: Player): ResourcePointsTuple
+  updateVictoryPoints(victoryPoints: VictoryPointsTuple, player: Player): VictoryPointsTuple
+  condition(gameState: GameState): boolean
+}
+
+export type CardData = CardProperties & CardFunctions & {
   name: Card
 }
+export type IncompleteCardData = CardProperties & Partial<CardFunctions>
 
-type CardDataLibrary = {
-  [key in Card]: CardData
+export type CardDataLibrary = {
+  [key in Card]: IncompleteCardData
 }
 
 /* Instead of modifying the game state directly, these cards will apply a passive effect.
    Still trying to work out how to represent that in state machine */
-// enum Effect {
+// export enum Effect {
 //   ReduceNext2plusP,
 //   MatchNextV
 // }
 
-type ZeroToSix = 0 | 1 | 2 | 3 | 4 | 5 | 6
-type ZeroToZen = ZeroToSix | 7 | 8 | 9 | 10
+export type HandTuple = [Card[], Card[]]
+export type DeckTuple = [Card[], Card[]]
+// export type EffectTuple = [Effect[], Effect[]]
+export type ResourcePointsTuple = [number, number]
+export type VictoryPointsTuple = [number, number]
 
-type HandTuple = [Card[], Card[]]
-type DeckTuple = [Card[], Card[]]
-// type EffectTuple = [Effect[], Effect[]]
-type ResourcePointsTuple = [ZeroToSix, ZeroToSix]
-type VictoryPointsTuple = [ZeroToZen, ZeroToZen]
 
 // The propertiees provided by our game's state
-type GameState = {
+export type GameState = {
   // effects: EffectTuple
+  activePlayer: Player
   hands: HandTuple
   decks: DeckTuple
+  lastHarvest: Player | null
   resourcePoints: ResourcePointsTuple
   victoryPoints: VictoryPointsTuple
-  activeTurn: Player
 }
 
-type GameActions = {
+export type GameActions = {
+  harvestResources(player: Player, modifier: number): void
   resetGame(): void
   startTurn(player: Player): void
   playCard(player: Player, card: Card): void
