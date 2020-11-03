@@ -7,7 +7,7 @@ import {
 
 
 import { SceneLogic } from './SceneLogic'
-import { useSceneQueue } from './SceneQueue'
+import { useSceneQueueRef } from './SceneQueue'
 import {
   CharacterPosition,
   ISceneActions,
@@ -19,7 +19,6 @@ interface ISceneProps {
 }
 
 const Scene: React.FC<ISceneProps> = ({
-
 }) => {
   const sceneActions = useActions(SceneLogic) as ISceneActions
 

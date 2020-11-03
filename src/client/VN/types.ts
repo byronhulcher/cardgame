@@ -54,6 +54,6 @@ export type ISceneActions = {
 }
 
 type Parameters<T> = T extends (...args: infer T) => any ? T : never;
-type ISceneActions2 = {
+type ISceneActionsCloneToDemonstrateParameters = {
   [key in keyof ISceneActions]: (...args: Parameters<ISceneActions[key]>) => void
 }

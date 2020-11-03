@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef } from 'react'
 
 import {
   ISceneActions
@@ -37,20 +37,14 @@ export class SceneQueue {
   }
 }
 
-export const useSceneQueue = (actions: ISceneActions): ISceneQueueActions => {
-  const [queue, setQueue] = useState<SceneAction[]>([])
-
+export const useSceneQueueRef = (actions: ISceneActions): ISceneQueueActions => {
+  const sceneQueueRef = useRef(new SceneQueue(actions))
+  const {
+    pop,
+    push
+  } = sceneQueueRef.current
   return {
-    push: (sceneAction) => {
-      setQueue([...queue, sceneAction])
-    },
-    pop: () => {
-      const [poppedAction, ...remainingQueue] = queue
-      if (typeof poppedAction !== "undefined") {
-        // @ts-ignore
-        actions[poppedAction.action](...poppedAction.args)
-      }
-      setQueue(remainingQueue)
-    }
+    pop,
+    push
   }
 }
