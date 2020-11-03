@@ -4,8 +4,8 @@ export enum Player {
 }
 
 export enum Card {
-  Sac1RGet1V,
-  Sac4RGet6R,
+  Sacrifice1RGain1V,
+  Sacrifice4RGain6R,
   Remove2R,
   Gain1R
 }
@@ -19,7 +19,7 @@ type CardProperties = {
 export type CardFunctions = {
   updateResourcePoints(resourcePoints: ResourcePointsTuple, player: Player): ResourcePointsTuple
   updateVictoryPoints(victoryPoints: VictoryPointsTuple, player: Player): VictoryPointsTuple
-  condition(gameState: GameState): boolean
+  condition(gameState: CardGameState): boolean
 }
 
 export type CardData = CardProperties & CardFunctions & {
@@ -46,7 +46,7 @@ export type VictoryPointsTuple = [number, number]
 
 
 // The propertiees provided by our game's state
-export type GameState = {
+export type CardGameState = {
   // effects: EffectTuple
   activePlayer: Player
   hands: HandTuple
@@ -56,7 +56,7 @@ export type GameState = {
   victoryPoints: VictoryPointsTuple
 }
 
-export type GameActions = {
+export type CardGameActions = {
   harvestResources(player: Player, modifier: number): void
   resetGame(): void
   startTurn(player: Player): void

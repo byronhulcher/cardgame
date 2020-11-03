@@ -2,14 +2,14 @@ import React from 'react'
 
 import {
   Card,
-  GameActions,
-  GameState,
+  CardGameActions,
+  CardGameState,
   Player
 } from '../types'
 
 export const Menu: React.FC<{
-  gameState: GameState,
-  gameActions: GameActions
+  gameState: CardGameState,
+  gameActions: CardGameActions
 }> = ({
   gameState: {
     activePlayer,

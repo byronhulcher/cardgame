@@ -5,17 +5,17 @@ import { getOpponent } from './utils'
 
 import {
   Card,
+  CardGameActions,
   DeckTuple,
-  GameActions,
   HandTuple,
   Player,
   ResourcePointsTuple,
   VictoryPointsTuple
 } from './types'
 
-export const GameLogic = kea({
+export const CardGameLogic = kea({
   // Boilerplate
-  actions: (): GameActions => ({
+  actions: (): CardGameActions => ({
     harvestResources: (player: Player, modifier: number) => ({ player, modifier }),
     resetGame: () => null,
     startTurn: (player: Player) => ({ player }),
@@ -42,7 +42,7 @@ export const GameLogic = kea({
       drawCard: (currentHandTuple: HandTuple, { player, card }: { player: Player, card: Card }) =>
         currentHandTuple.map((hand, index) => index === player ? [...hand, card] : hand),
     }],
-    decks: [[[Card.Remove2R, Card.Sac1RGet1V, Card.Sac4RGet6R], []] as HandTuple, {
+    decks: [[[Card.Remove2R, Card.Sacrifice1RGain1V, Card.Sacrifice4RGain6R], []] as HandTuple, {
       drawCard: (currentDeckTuple: DeckTuple, { player, card }: { player: Player, card: Card }) =>
         currentDeckTuple.map((deck, index) => index === player ? deck.filter((deckCard) => deckCard !== card) : deck),
     }],

@@ -4,8 +4,8 @@ import { getCardData } from '../CardData'
 import {
   Card,
   CardData,
-  GameActions,
-  GameState,
+  CardGameActions,
+  CardGameState,
   Player
 } from '../types'
 
@@ -25,8 +25,8 @@ const RenderedCard: React.FC<{ cardData: CardData, disabled: boolean, onClick: (
   )
 
 export const Hand: React.FC<{
-  gameState: GameState,
-  gameActions: GameActions,
+  gameState: CardGameState,
+  gameActions: CardGameActions,
   player: Player
 }> = ({
   gameState,

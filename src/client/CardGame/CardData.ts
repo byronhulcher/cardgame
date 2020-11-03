@@ -1,11 +1,11 @@
 import {
   Card,
   CardData,
+  CardGameState,
   CardDataLibrary,
   ResourcePointsTuple,
   VictoryPointsTuple,
-  Player,
-  GameState
+  Player
 } from './types'
 import { getOpponent } from './utils'
 
@@ -13,14 +13,14 @@ export const CARD_DATA_LIBRARY: CardDataLibrary = {
   [Card.Gain1R]: {
     updateResourcePoints: (current, player) => updatePointsForPlayer(current, player, 1)
   },
-  [Card.Sac4RGet6R]: {
-    condition: ({ activePlayer, resourcePoints }: GameState) => resourcePoints[activePlayer] >= 4,
+  [Card.Sacrifice4RGain6R]: {
+    condition: ({ activePlayer, resourcePoints }: CardGameState) => resourcePoints[activePlayer] >= 4,
     updateResourcePoints: (current, player) => updatePointsForPlayer(current, player, 2)
   },
   [Card.Remove2R]: {
     updateResourcePoints: (current, player) => updatePointsForPlayer(current, getOpponent(player), -1)
   },
-  [Card.Sac1RGet1V]: {
+  [Card.Sacrifice1RGain1V]: {
     updateResourcePoints: (current, player) => updatePointsForPlayer(current, player, -1),
     updateVictoryPoints: (current, player) => updatePointsForPlayer(current, player, 1)
   }

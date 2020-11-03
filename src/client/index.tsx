@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { resetContext, getContext } from 'kea' // 👈 add this
 import { Provider } from 'react-redux' // 👈 add this
 
-import { Game } from './Game'
+import { CardGame } from './CardGame/CardGame'
 
 resetContext({
   createStore: {
@@ -18,7 +18,7 @@ resetContext({
 
 ReactDOM.render(
   <Provider store={getContext().store}>
-    <Game />
+    <CardGame />
   </Provider>,
   document.getElementsByTagName('main')[0]
 )

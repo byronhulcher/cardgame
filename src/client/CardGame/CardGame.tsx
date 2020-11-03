@@ -8,21 +8,21 @@ import {
   Instructions,
   Menu
 } from './components'
-import { GameLogic } from './GameLogic'
+import { CardGameLogic } from './CardGameLogic'
 import {
-  GameActions,
-  GameState,
+  CardGameActions,
+  CardGameState,
   Player
 } from './types'
 
 /* All the rendered components that we'll be showing to the player */
-export const Game: React.FC = () => {
-  const gameActions = useActions(GameLogic) as GameActions
-  const gameState = useAllValues(GameLogic) as GameState
+export const CardGame: React.FC = () => {
+  const gameActions = useActions(CardGameLogic) as CardGameActions
+  const gameState = useAllValues(CardGameLogic) as CardGameState
   console.log({ gameState })
   return (
     <>
-      <h1>VN Card Game Prototype</h1>
+      <h1>Card Game Prototype</h1>
       <div className="row-wrap">
         <div>
           <h2>Active Player: {Player[gameState.activePlayer]}</h2>

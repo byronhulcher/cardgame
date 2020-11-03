@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {
-  GameState,
+  CardGameState,
   Player
 } from '../types'
 
@@ -10,7 +10,7 @@ const VictoryPoints: React.FC<{ points: number }> = (props) => (<Points name="Vi
 const ResourcePoints: React.FC<{ points: number }> = (props) => (<Points name="Resource" symbol="🔋" {...props} max={6} />)
 
 export const Board: React.FC<{
-  gameState: GameState
+  gameState: CardGameState
 }> = ({
   gameState: {
     resourcePoints,
