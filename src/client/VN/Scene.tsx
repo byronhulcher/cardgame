@@ -1,23 +1,19 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import {
   useActions,
   useValues
 } from 'kea'
 
-import { ContinueBody } from './ContinueBody'
-import { LogicActionQueueItem } from './LogicActionQueue'
+import { SceneLogic } from './SceneLogic'
+import { useSceneQueue } from './SceneQueue'
+import { getTestScene } from './TestScene'
 import {
-  Background,
   CharacterPosition,
-  Characters,
   CharacterSprite,
-  IDialogProps,
   ISceneActions,
   ISceneValues
 } from './types'
-import { SceneLogic } from './SceneLogic'
-import { useSceneQueue } from './SceneQueue'
 
 interface ISceneProps {
 }
@@ -34,58 +30,22 @@ export const Scene: React.FC<ISceneProps> = ({
     }
   } = useValues(SceneLogic) as ISceneValues
 
+  const sceneQueue = useSceneQueue(sceneActions)
+
   const {
-    queue,
     popUntilStop,
     set
-  } = useSceneQueue(sceneActions)
+  } = sceneQueue
 
-  const sceneQueue: LogicActionQueueItem<ISceneActions>[] = [
-    {
-      action: 'setBackground',
-      args: [Background.Outside]
-    },
-    {
-      action: 'setCharacters',
-      args: [{
-        [CharacterPosition.Right]: CharacterSprite.BillLeft
-      } as Characters]
-    },
-    {
-      action: 'setDialog',
-      args: [{
-        dialogSpeaker: 'Bill',
-        dialogBody: <ContinueBody onContinue={popUntilStop}>Hello</ContinueBody>
-      } as IDialogProps]
-    },
-    {
-      action: 'updateDialog',
-      args: [{
-        dialogBody: <ContinueBody onContinue={popUntilStop}>I'm Bill</ContinueBody>
-      } as IDialogProps]
-    },
-    {
-      action: 'updateCharacters',
-      args: [{
-        [CharacterPosition.Left]: CharacterSprite.AliceRight
-      } as Characters]
-    },
-    {
-      action: 'setDialog',
-      args: [{
-        dialogSpeaker: 'Alice',
-        dialogBody: 'And I\'m Alice'
-      } as IDialogProps]
-    },
-  ]
+  const scene = getTestScene(sceneQueue)
 
   const restartScene = () => {
-    set(sceneQueue)
+    set(scene)
     popUntilStop()
   }
 
   useEffect(restartScene, [])
-  console.log({ queue })
+
   return (
     <>
       <h1>Card Game Prototype</h1>

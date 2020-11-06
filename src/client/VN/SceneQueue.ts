@@ -19,6 +19,13 @@ export class SceneQueue extends LogicActionQueue<ISceneActions> {
       }
     }
   }
+
+  jumpToAndPopUntilStop(tag: string) {
+    this.jumpTo(tag)
+    if (this.queue[0]?.tag === tag) {
+      this.popUntilStop()
+    }
+  }
 }
 
 export const useSceneQueue = (actions: ISceneActions, queue: LogicActionQueueItem<ISceneActions>[] = []) => {

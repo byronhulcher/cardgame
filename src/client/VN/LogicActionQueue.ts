@@ -9,7 +9,8 @@ type LogicAction = {
 export type LogicActionQueueItem<T extends LogicAction> = {
   [K in keyof T]: {
     action: K,
-    args: ArgumentsOf<T[K]>
+    args: ArgumentsOf<T[K]>,
+    tag?: string
   }
 }[keyof T];
 
@@ -24,7 +25,7 @@ export class LogicActionQueue<T extends LogicAction> {
   }
 
   push(sceneAction: LogicActionQueueItem<T> | LogicActionQueueItem<T>[]): void {
-    this.set(Array.isArray(sceneAction) ? [...this.queue, ...sceneAction] : [...this.queue, sceneAction])
+    this.queue = Array.isArray(sceneAction) ? [...this.queue, ...sceneAction] : [...this.queue, sceneAction]
   }
 
   pop(): LogicActionQueueItem<T> {
@@ -42,7 +43,13 @@ export class LogicActionQueue<T extends LogicAction> {
   }
 
   set(queue: LogicActionQueueItem<T>[]): void {
-    console.log('set', { queue })
     this.queue = [...queue]
+  }
+
+  jumpTo(tag: string) {
+    const queueIndex = this.queue.findIndex((queueItem) => queueItem?.tag === tag)
+    if (queueIndex >= 0) {
+      this.queue = this.queue.slice(queueIndex)
+    }
   }
 }
