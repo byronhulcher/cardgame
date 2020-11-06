@@ -1,6 +1,10 @@
 import React from 'react'
 
 import {
+  Link,
+} from "react-router-dom";
+
+import {
   Card,
   CardGameActions,
   CardGameState,
@@ -53,6 +57,7 @@ export const Menu: React.FC<{
               </a>
             </li>
             <li><a onClick={resetGame}>Reset Game</a></li>
+            <li><Link to="/">Main Menu</Link></li>
           </ul>
         </h3>
       </div >

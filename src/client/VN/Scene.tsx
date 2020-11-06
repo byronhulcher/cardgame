@@ -4,6 +4,9 @@ import {
   useActions,
   useValues
 } from 'kea'
+import {
+  Link,
+} from "react-router-dom";
 
 import { SceneLogic } from './SceneLogic'
 import { useSceneQueue } from './SceneQueue'
@@ -48,7 +51,7 @@ export const Scene: React.FC<ISceneProps> = ({
 
   return (
     <>
-      <h1>Card Game Prototype</h1>
+      <h1>VN Prototype</h1>
       <h2>Characters</h2>
       <ul>
         {typeof characters[CharacterPosition.Left] !== "undefined" &&
@@ -77,11 +80,8 @@ export const Scene: React.FC<ISceneProps> = ({
       <h2>Menu</h2>
       <h3>
         <ul>
-          <a onClick={restartScene}>
-            <li>
-              Reset
-            </li>
-          </a>
+          <a onClick={restartScene}><li>Reset</li></a>
+          <Link to="/"><li>Main Menu</li></Link>
         </ul>
       </h3>
     </>
