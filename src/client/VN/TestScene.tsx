@@ -1,6 +1,9 @@
 import React from 'react'
 
-import { ContinueBody } from './ContinueBody'
+import {
+  ChoiceBody,
+  ContinueBody
+ } from './components'
 import { LogicActionQueueItem } from './LogicActionQueue'
 import {
   Background,
@@ -10,14 +13,12 @@ import {
   IDialogProps,
   ISceneActions,
 } from './types'
-import { ChoiceBody } from './ChoiceBody'
 import { SceneQueue } from './SceneQueue'
 
 export const getTestScene = ({
   jumpToAndPopUntilStop,
   popUntilStop
-}: SceneQueue) => {
-
+}: SceneQueue): LogicActionQueueItem<ISceneActions>[] => {
   const sceneQueue: LogicActionQueueItem<ISceneActions>[] = [
   {
     action: 'setBackground',

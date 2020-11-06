@@ -1,6 +1,9 @@
 import React from 'react'
 
-import { useActions, useAllValues } from 'kea'
+import {
+  useActions,
+  useAllValues
+} from 'kea'
 
 import {
   Board,
@@ -19,7 +22,7 @@ import {
 export const CardGame: React.FC = () => {
   const gameActions = useActions(CardGameLogic) as CardGameActions
   const gameState = useAllValues(CardGameLogic) as CardGameState
-  console.log({ gameState })
+
   return (
     <>
       <h1>Card Game Prototype</h1>

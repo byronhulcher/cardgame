@@ -18,11 +18,7 @@ import {
   ISceneValues
 } from './types'
 
-interface ISceneProps {
-}
-
-export const Scene: React.FC<ISceneProps> = ({
-}) => {
+export const Scene: React.FC = () => {
   const sceneActions = useActions(SceneLogic) as ISceneActions
 
   const {

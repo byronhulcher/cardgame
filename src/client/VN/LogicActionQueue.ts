@@ -1,9 +1,9 @@
 import autoBind from 'auto-bind'
 
-type ArgumentsOf<T> = T extends (...args: infer T) => any ? T : never;
+type ArgumentsOf<T> = T extends (...args: infer T) => unknown ? T : never;
 
 type LogicAction = {
-  [key in string]: (...args: any[]) => any
+  [key in string]: (...args: unknown[]) => void
 }
 
 export type LogicActionQueueItem<T extends LogicAction> = {
@@ -31,7 +31,6 @@ export class LogicActionQueue<T extends LogicAction> {
   pop(): LogicActionQueueItem<T> {
     const [poppedAction, ...remainingQueue] = this.queue
     if (typeof poppedAction !== "undefined") {
-      // @ts-ignore
       this.actions[poppedAction.action](...poppedAction.args)
     }
     this.queue = remainingQueue
