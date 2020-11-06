@@ -5,6 +5,7 @@ import { resetContext, getContext } from 'kea' // 👈 add this
 import { Provider } from 'react-redux' // 👈 add this
 
 import { CardGame } from './CardGame/CardGame'
+import { Scene } from './VN/Scene'
 
 resetContext({
   createStore: {
@@ -18,7 +19,8 @@ resetContext({
 
 ReactDOM.render(
   <Provider store={getContext().store}>
-    <CardGame />
+    {/*<CardGame />*/}
+    <Scene />
   </Provider>,
   document.getElementsByTagName('main')[0]
 )
