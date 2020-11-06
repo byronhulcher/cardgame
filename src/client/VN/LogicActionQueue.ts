@@ -1,6 +1,6 @@
 import autoBind from 'auto-bind'
 
-type ArgumentsOf<T> = T extends (...args: infer T) => unknown ? T : never;
+import { ArgumentsOf } from './utils'
 
 type LogicAction = {
   [key in string]: (...args: unknown[]) => void
