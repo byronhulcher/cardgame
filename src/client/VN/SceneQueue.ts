@@ -4,9 +4,7 @@ import {
   LogicActionQueue,
   LogicActionQueueItem
 } from './LogicActionQueue'
-import {
-  ISceneActions
-} from './types'
+import { ISceneActions } from './types'
 
 const STOP_ACTIONS: (keyof ISceneActions)[] = ['setDialog', 'updateDialog']
 
