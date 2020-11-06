@@ -13,14 +13,14 @@ export const SceneLogic = kea({
   // Boilerplate
   actions: (): ISceneActions => ({
     setBackground: (background) => ({ background }),
-    setCharacters: (characters) => ({ characters }),
-    updateCharacters: (characters) => ({ characters }),
     setCharacter: (position, sprite) => ({ position, sprite }),
+    setCharacters: (characters) => ({ characters }),
     setDialog: (dialog) => ({ dialog }),
+    updateCharacters: (characters) => ({ characters }),
     updateDialog: (dialog) => ({ dialog }),
   }),
   reducers: () => ({
-    background: [null, {
+    background: [Background.Default, {
       setBackground: (_, { background }: { background: Background }) => background
     }],
     characters: [{}, {

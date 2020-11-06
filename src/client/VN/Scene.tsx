@@ -12,6 +12,7 @@ import { SceneLogic } from './SceneLogic'
 import { useSceneQueue } from './SceneQueue'
 import { getTestScene } from './TestScene'
 import {
+  Background,
   CharacterPosition,
   CharacterSprite,
   ISceneActions,
@@ -22,6 +23,7 @@ export const Scene: React.FC = () => {
   const sceneActions = useActions(SceneLogic) as ISceneActions
 
   const {
+    background,
     characters,
     dialog: {
       dialogBody,
@@ -48,31 +50,35 @@ export const Scene: React.FC = () => {
   return (
     <>
       <h1>VN Prototype</h1>
-      <h2>Characters</h2>
+      <h2>Background: {Background[background]}</h2>
+      <h2>Characters:</h2>
+      <h3>
+        <ul>
+          {typeof characters[CharacterPosition.Left] !== "undefined" &&
+            <li>Left: {CharacterSprite[characters[CharacterPosition.Left]]}</li>
+          }
+          {typeof characters[CharacterPosition.Center] !== "undefined" &&
+            <li>Center: {CharacterSprite[characters[CharacterPosition.Center]]}</li>
+          }
+          {typeof characters[CharacterPosition.Right] !== "undefined" &&
+            <li>Right: {CharacterSprite[characters[CharacterPosition.Right]]}</li>
+          }
+        </ul>
+      </h3>
+      <h2>Dialog:</h2>
       <ul>
-        {typeof characters[CharacterPosition.Left] !== "undefined" &&
-          <li>Left: {CharacterSprite[characters[CharacterPosition.Left]]}</li>
+        {typeof dialogSpeaker !== "undefined" &&
+          <li>
+            <h3>Speaker: {dialogSpeaker}</h3>
+          </li>
         }
-        {typeof characters[CharacterPosition.Center] !== "undefined" &&
-          <li>Center: {CharacterSprite[characters[CharacterPosition.Center]]}</li>
-        }
-        {typeof characters[CharacterPosition.Right] !== "undefined" &&
-          <li>Right: {CharacterSprite[characters[CharacterPosition.Right]]}</li>
+        {typeof dialogBody !== "undefined" &&
+          <li>
+            <h3>Content:</h3>
+            <div>{dialogBody}</div>
+          </li>
         }
       </ul>
-      <h2>Dialog</h2>
-      {typeof dialogSpeaker !== "undefined" &&
-        <>
-          <h3>Speaker</h3>
-          <div>{dialogSpeaker}</div>
-        </>
-      }
-      {typeof dialogBody !== "undefined" &&
-        <>
-          <h3>Body</h3>
-          <div>{dialogBody}</div>
-        </>
-      }
       <h2>Menu</h2>
       <h3>
         <ul>
