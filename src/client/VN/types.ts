@@ -33,15 +33,15 @@ export type Characters = {
   [key in CharacterPosition]?: CharacterSprite
 }
 
+export type IDialogProps = {
+  dialogBody: React.ReactNode
+  dialogSpeaker: React.ReactNode
+}
+
 export type ISceneValues = IDialogProps & {
   background: Background
   characters: Characters,
-
-}
-
-export type IDialogProps = {
-  dialogBody?: React.ReactNode
-  dialogSpeaker?: React.ReactNode
+  dialog: IDialogProps
 }
 
 export type ISceneActions = {
@@ -49,6 +49,6 @@ export type ISceneActions = {
   setCharacters(characters: Characters)
   updateCharacters(characters: Characters)
   setCharacter(position: CharacterPosition, sprite: CharacterSprite)
-  setDialog(dialogProps: IDialogProps)
-  updateDialog(dialogProps: IDialogProps)
+  setDialog(dialog: IDialogProps)
+  updateDialog(dialog: IDialogProps)
 }

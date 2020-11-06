@@ -16,11 +16,11 @@ export const SceneLogic = kea({
     setCharacters: (characters) => ({ characters }),
     updateCharacters: (characters) => ({ characters }),
     setCharacter: (position, sprite) => ({ position, sprite }),
-    setDialog: (dialogProps) => (dialogProps),
-    updateDialog: (dialogProps) => (dialogProps),
+    setDialog: (dialog) => ({ dialog }),
+    updateDialog: (dialog) => ({ dialog }),
   }),
   reducers: () => ({
-    background: [undefined, {
+    background: [null, {
       setBackground: (_, { background }: { background: Background }) => background
     }],
     characters: [{}, {
@@ -28,13 +28,9 @@ export const SceneLogic = kea({
       setCharacters: (_, { characters }: { characters: Characters }) => characters,
       updateCharacters: (currentCharacters: Characters, { characters }: { characters: Characters }) => ({ ...currentCharacters, ...characters })
     }],
-    dialogBody: [undefined, {
-      setDialog: (_, { dialogBody }: IDialogProps) => dialogBody,
-      updateDialog: (currentDialogBody: React.ReactNode | undefined, { dialogBody }: IDialogProps): React.ReactNode | undefined => typeof dialogBody === "undefined" ? currentDialogBody : dialogBody
-    }],
-    dialogSpeaker: [undefined, {
-      setDialog: (_, { dialogSpeaker }: IDialogProps) => dialogSpeaker,
-      updateDialog: (currentDialogSpeaker: React.ReactNode | undefined, { dialogSpeaker }: IDialogProps): React.ReactNode | undefined => typeof dialogSpeaker === "undefined" ? currentDialogSpeaker : dialogSpeaker
-    }],
+    dialog: [{}, {
+      setDialog: (_, { dialog }: { dialog: IDialogProps }) => dialog,
+      updateDialog: (currentDialog: IDialogProps, { dialog }: { dialog: IDialogProps }) => ({ ...currentDialog, ...dialog })
+    }]
   })
 })
