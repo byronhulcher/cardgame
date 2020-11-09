@@ -10,7 +10,7 @@ import {
 
 import { SceneLogic } from './SceneLogic'
 import { useSceneQueue } from './SceneQueue'
-import { getTestScene } from './TestScene'
+import { stageTestScene } from './TestSceneWithManager'
 import {
   Background,
   CharacterPosition,
@@ -34,14 +34,13 @@ export const Scene: React.FC = () => {
   const sceneQueue = useSceneQueue(sceneActions)
 
   const {
+    empty,
     popUntilStop,
-    set
   } = sceneQueue
 
-  const scene = getTestScene(sceneQueue)
-
   const restartScene = () => {
-    set(scene)
+    empty()
+    stageTestScene(sceneQueue)
     popUntilStop()
   }
 

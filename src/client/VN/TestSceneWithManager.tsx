@@ -11,17 +11,18 @@ import {
 } from './types'
 import { SceneQueue } from './sceneQueue'
 
-export const getTestScene = (sceneQueue: InstanceType<typeof SceneQueue>): void => {
+export const stageTestScene = (sceneQueue: InstanceType<typeof SceneQueue>): void => {
   const {
     popUntilStop,
     jumpToAndPopUntilStop,
-    actions: {
+    queueableActions: {
       setBackground,
       setCharacters,
       setDialog,
       updateCharacters,
-      updateDialog
-    }
+      updateDialog,
+    },
+    tag
   } = sceneQueue
 
   setBackground(Background.Outside)
@@ -62,19 +63,10 @@ export const getTestScene = (sceneQueue: InstanceType<typeof SceneQueue>): void 
     )
   })
 
-  setCharacters({
-    [CharacterPosition.Left]: CharacterSprite.AliceRight,
-  }, "ALICE_OPTION")
-  setDialog({
-    dialogSpeaker: 'Alice',
-    dialogBody: (<ContinueBody onContinue={popUntilStop}>This is my special dialog</ContinueBody>)
-  })
-  updateDialog({
-    dialogBody: (<ContinueBody onContinue={() => jumpToAndPopUntilStop('AFTER_CHOICE')}>You made the right choice</ContinueBody>)
-  })
+  tag("ALICE_OPTION")
   setCharacters({
     [CharacterPosition.Left]: CharacterSprite.AliceRight
-  }, "ALICE_OPTION")
+  })
   setDialog({
     dialogSpeaker: 'Alice',
     dialogBody: (<ContinueBody onContinue={popUntilStop}>This is my special dialog</ContinueBody>)
@@ -83,9 +75,10 @@ export const getTestScene = (sceneQueue: InstanceType<typeof SceneQueue>): void 
     dialogBody: (<ContinueBody onContinue={() => jumpToAndPopUntilStop('AFTER_CHOICE')}>You made the right choice</ContinueBody>)
   })
 
+  tag("BILL_OPTION")
   setCharacters({
     [CharacterPosition.Right]: CharacterSprite.BillLeft
-  }, "BILL_OPTION")
+  })
   setDialog({
     dialogSpeaker: 'Bill',
     dialogBody: (<ContinueBody onContinue={popUntilStop}>This is my unique dialog</ContinueBody>)
@@ -94,10 +87,11 @@ export const getTestScene = (sceneQueue: InstanceType<typeof SceneQueue>): void 
     dialogBody: (<ContinueBody onContinue={() => jumpToAndPopUntilStop('AFTER_CHOICE')}>You made the correct choice</ContinueBody>)
   })
 
+  tag("AFTER_CHOICE")
   setCharacters({
     [CharacterPosition.Left]: CharacterSprite.AliceRight,
     [CharacterPosition.Right]: CharacterSprite.BillLeft
-  }, "AFTER_CHOICE")
+  })
   setDialog({
     dialogSpeaker: 'Alice',
     dialogBody: (<ContinueBody onContinue={popUntilStop}>We hope you are satisfied with your decision</ContinueBody>)

@@ -2,36 +2,67 @@ import autoBind from 'auto-bind'
 
 import { ArgumentsOf } from './utils'
 
-type LogicAction = {
+export type LogicAction = {
   [key in string]: (...args: unknown[]) => void
 }
 
 export type LogicActionQueueItem<T extends LogicAction> = {
   [K in keyof T]: {
     action: K,
-    args: ArgumentsOf<T[K]>,
-    tag?: string
+    args: ArgumentsOf<T[K]>
   }
 }[keyof T];
 
-export class LogicActionQueue<T extends LogicAction> {
-  queue: LogicActionQueueItem<T>[]
-  logicActions: T
+export type TagQueueItem = {
+  tag: string
+}
 
-  constructor(logicActions: T, queue: LogicActionQueueItem<T>[] = []) {
+type QueueItem<T extends LogicAction> = LogicActionQueueItem<T> | TagQueueItem
+
+export function isLogicAction<T extends LogicAction>(queueItem: QueueItem<T>): queueItem is LogicActionQueueItem<T> {
+  return (queueItem as LogicActionQueueItem<T>).action !== undefined;
+}
+
+export function isTag<T extends LogicAction>(queueItem: QueueItem<T>): queueItem is TagQueueItem {
+  return (queueItem as TagQueueItem).tag !== undefined;
+}
+
+export class LogicActionQueue<T extends LogicAction> {
+  queue: QueueItem<T>[]
+  logicActions: T
+  queueableActions: T
+
+  constructor(logicActions: T, queue: QueueItem<T>[] = []) {
     this.logicActions = logicActions
     this.queue = queue
+
+    this.queueableActions = (Object.keys(logicActions) as Array<keyof T>).reduce(
+      (accumulator, action) => ({
+        ...accumulator,
+        [action]: (...args: [...ArgumentsOf<T[typeof action]>]): void => {
+          this.push({ action, args } as LogicActionQueueItem<T>)
+        }
+      }),
+      {} as T
+    )
+
     autoBind(this)
   }
 
-  push(sceneAction: LogicActionQueueItem<T> | LogicActionQueueItem<T>[]): void {
-    this.queue = Array.isArray(sceneAction) ? [...this.queue, ...sceneAction] : [...this.queue, sceneAction]
+  push(sceneAction: QueueItem<T>): void {
+    this.queue = [...this.queue, sceneAction]
   }
 
-  pop(): LogicActionQueueItem<T> {
+  tag(tag: string): void {
+    this.push({ tag })
+  }
+
+  pop(): QueueItem<T> {
     const [poppedAction, ...remainingQueue] = this.queue
     if (typeof poppedAction !== "undefined") {
-      this.logicActions[poppedAction.action](...poppedAction.args)
+      if (isLogicAction(poppedAction)) {
+        this.logicActions[poppedAction.action](...poppedAction.args)
+      }
     }
     this.queue = remainingQueue
     return poppedAction
@@ -41,14 +72,17 @@ export class LogicActionQueue<T extends LogicAction> {
     this.queue = []
   }
 
-  set(queue: LogicActionQueueItem<T>[]): void {
+  set(queue: QueueItem<T>[]): void {
     this.queue = [...queue]
   }
 
-  jumpTo(tag: string) {
-    const queueIndex = this.queue.findIndex((queueItem) => queueItem?.tag === tag)
+  jumpTo(tag: string): boolean {
+    const queueIndex = this.queue.findIndex((queueItem) => isTag(queueItem) && queueItem?.tag === tag)
+    // return the remainder of the queue EXCLUDING the found item with the tag
     if (queueIndex >= 0) {
-      this.queue = this.queue.slice(queueIndex)
+      this.queue = this.queue.slice(queueIndex + 1)
+      return true
     }
+    return false
   }
 }
