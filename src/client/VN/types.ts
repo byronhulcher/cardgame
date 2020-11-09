@@ -48,7 +48,6 @@ export type ISceneActions = {
   setBackground(background: Background)
   setCharacters(characters: Characters)
   updateCharacters(characters: Characters)
-  setCharacter(position: CharacterPosition, sprite: CharacterSprite)
   setDialog(dialog: IDialogProps)
   updateDialog(dialog: IDialogProps)
 }
