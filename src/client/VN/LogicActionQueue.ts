@@ -16,10 +16,10 @@ export type LogicActionQueueItem<T extends LogicAction> = {
 
 export class LogicActionQueue<T extends LogicAction> {
   queue: LogicActionQueueItem<T>[]
-  actions: T
+  logicActions: T
 
-  constructor(actions: T, queue: LogicActionQueueItem<T>[] = []) {
-    this.actions = actions
+  constructor(logicActions: T, queue: LogicActionQueueItem<T>[] = []) {
+    this.logicActions = logicActions
     this.queue = queue
     autoBind(this)
   }
@@ -31,7 +31,7 @@ export class LogicActionQueue<T extends LogicAction> {
   pop(): LogicActionQueueItem<T> {
     const [poppedAction, ...remainingQueue] = this.queue
     if (typeof poppedAction !== "undefined") {
-      this.actions[poppedAction.action](...poppedAction.args)
+      this.logicActions[poppedAction.action](...poppedAction.args)
     }
     this.queue = remainingQueue
     return poppedAction

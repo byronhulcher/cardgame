@@ -1,7 +1,5 @@
-export type ArgumentsOf<F> = F extends (...args: infer T) => unknown ? T : never;
-
 export type ArgumentOf<F> = F extends (arg: infer T) => unknown ? T : never;
-
+export type ArgumentsOf<F> = F extends (...args: infer T) => unknown ? T : never;
 
 export type HasMethods<T> = { [k in keyof T]: (...args: ArgumentsOf<T[k]>) => void }
 

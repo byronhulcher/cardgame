@@ -29,14 +29,14 @@ export enum CharacterPosition {
   Right
 }
 
-export type Characters = {
-  [key in CharacterPosition]?: CharacterSprite
-}
+export type Characters = Partial<{
+  [key in CharacterPosition]: CharacterSprite
+}>
 
-export type IDialogProps = {
+export type IDialogProps = Partial<{
   dialogBody: React.ReactNode
   dialogSpeaker: React.ReactNode
-}
+}>
 
 export type ISceneValues = IDialogProps & {
   background: Background
