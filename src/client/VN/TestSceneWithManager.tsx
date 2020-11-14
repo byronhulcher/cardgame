@@ -11,7 +11,6 @@ import {
   CharacterPosition,
   CharacterSprite,
 } from './types'
-
 export const stageTestScene = (sceneQueue: InstanceType<typeof SceneQueue>): void => {
   const {
     popUntilStop,
@@ -28,30 +27,39 @@ export const stageTestScene = (sceneQueue: InstanceType<typeof SceneQueue>): voi
 
   setBackground(Background.Outside)
   setCharacters({ [CharacterPosition.Right]: CharacterSprite.BillLeft })
-  // setDialog({
-  //   dialogSpeaker: 'Bill',
-  //   dialogBody: (<ContinueBody onContinue={popUntilStop}>Hello</ContinueBody>),
-  // })
   setDialog({
     dialogSpeaker: 'Bill',
     dialogBody: <TypingBody
-      choices={[]}
+      choices={[
+        {
+          text: 'Talk to Alice',
+          action:  popUntilStop,
+        },
+        {
+          text: 'Talk to Bill',
+          action: () => jumpToAndPopUntilStop('BILL_OPTION'),
+        },
+        {
+          text: 'Skip to end',
+          action: () => jumpToAndPopUntilStop('AFTER_CHOICE'),
+        },
+      ]}
     >
-      Hello
+      We&apos;re Bill and Alice
     </TypingBody>
     ,
   })
-  updateDialog({ dialogBody: <ContinueBody onContinue={popUntilStop}>I&aspos;m Bill</ContinueBody> })
   updateCharacters({ [CharacterPosition.Left]: CharacterSprite.AliceRight })
   setDialog({
     dialogSpeaker: 'Alice',
-    dialogBody: <ContinueBody onContinue={popUntilStop}>And I&aspos;m Alice</ContinueBody>,
+    dialogBody: <ContinueBody onContinue={popUntilStop}>And I&apos;m Alice</ContinueBody>,
   })
   setDialog({ dialogBody:
   <ChoiceBody
     choices={[
+
       {
-        content: 'Talk to Alice',
+        content: 'Talk to Alice more',
         onClick: () => jumpToAndPopUntilStop('ALICE_OPTION'),
       },
       {

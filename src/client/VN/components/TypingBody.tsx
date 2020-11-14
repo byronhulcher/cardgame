@@ -15,13 +15,15 @@ type IHighlightMatchedTextProps = {
 
 const splitStringOnMatch = (base: string, match: string): [string, string] => {
   let matched = ""
-  for (let index; index < base.length; index++) {
-    if (base[index] === match[index]) {
+
+  for (let index = 0; index < base.length && index < match.length; index++) {
+    if (base[index].toLowerCase() === match[index].toLowerCase()) {
       matched += base[index]
     } else {
       break
     }
   }
+
   return [
     matched,
     base.slice(matched.length),
@@ -37,7 +39,10 @@ export const HighlightMatchedText: React.FC<IHighlightMatchedTextProps> = ({
     remaining,
   ] = splitStringOnMatch(dispalyedText, textToMatch)
   return (
-    <span><span color="green">{matched}</span>{remaining}</span>
+    <span>
+      <span className="highlighted">{matched}</span>
+      <span className={textToMatch.length > matched.length ? "faded" : ""}>{remaining}</span>
+    </span>
   )
 }
 
@@ -55,7 +60,7 @@ export const TypingBody: React.FC<ITypingBodyProps> = ({
   ] = useState<string>('')
 
   useEffect(() => {
-    const activeChoice = choices.find(choice => choice.text === inputValue)
+    const activeChoice = choices.find(choice => choice.text.toLowerCase() === inputValue.toLowerCase())
     if (activeChoice) {
       activeChoice.action()
     }
@@ -73,7 +78,10 @@ export const TypingBody: React.FC<ITypingBodyProps> = ({
               className="typing-boody--choice"
               key={choice.text}
             >
-              {choice.text}
+              <HighlightMatchedText
+                dispalyedText={choice.text}
+                textToMatch={inputValue}
+              />
             </li>
           ))}
         </ul>
