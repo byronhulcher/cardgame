@@ -11,7 +11,7 @@ type IChoiceBodyProps = {
 
 export const ChoiceBody: React.FC<IChoiceBodyProps> = ({
   children,
-  choices
+  choices,
 }) => {
   return (
     <div>
@@ -20,13 +20,17 @@ export const ChoiceBody: React.FC<IChoiceBodyProps> = ({
       </div>
       <div>
         <ul>
-          {
-            choices.map(({ content, onClick }) => (
-              <a onClick={onClick}>
-                <li>{content}</li>
-              </a>
-            ))
-          }
+          {choices.map(({
+            content,
+            onClick,
+          }) => (
+            <a
+              key={content.toString()}
+              onClick={onClick}
+            >
+              <li>{content}</li>
+            </a>
+          ))}
         </ul>
       </div>
     </div>

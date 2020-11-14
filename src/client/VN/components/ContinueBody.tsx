@@ -6,7 +6,7 @@ type IContinueBodyProps = {
 
 export const ContinueBody: React.FC<IContinueBodyProps> = ({
   children,
-  onContinue
+  onContinue,
 }) => {
   return (
     <div>

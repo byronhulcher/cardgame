@@ -2,20 +2,20 @@ import React from 'react'
 
 import {
   useActions,
-  useAllValues
+  useAllValues,
 } from 'kea'
 
+import { CardGameLogic } from './CardGameLogic'
 import {
   Board,
   Hand,
   Instructions,
-  Menu
+  Menu,
 } from './components'
-import { CardGameLogic } from './CardGameLogic'
 import {
   CardGameActions,
   CardGameState,
-  Player
+  Player,
 } from './types'
 
 /* All the rendered components that we'll be showing to the player */

@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, {
+  useState,
+  useEffect,
+} from 'react'
 
 type Choice = {
   text: string
@@ -19,28 +22,37 @@ const splitStringOnMatch = (base: string, match: string): [string, string] => {
       break
     }
   }
-  return [matched, base.slice(matched.length)]
+  return [
+    matched,
+    base.slice(matched.length),
+  ]
 }
 
 export const HighlightMatchedText: React.FC<IHighlightMatchedTextProps> = ({
   dispalyedText,
-  textToMatch
+  textToMatch,
 }) => {
-  const [matched, remaining] = splitStringOnMatch(dispalyedText, textToMatch)
+  const [
+    matched,
+    remaining,
+  ] = splitStringOnMatch(dispalyedText, textToMatch)
   return (
     <span><span color="green">{matched}</span>{remaining}</span>
   )
 }
 
-type IContinueBodyProps = {
+type ITypingBodyProps = {
   choices: Choice[]
 }
 
-export const ChoiceBody: React.FC<IContinueBodyProps> = ({
+export const TypingBody: React.FC<ITypingBodyProps> = ({
   children,
-  choices
+  choices,
 }) => {
-  const [inputValue, setInputValue] = useState<string>('')
+  const [
+    inputValue,
+    setInputValue,
+  ] = useState<string>('')
 
   useEffect(() => {
     const activeChoice = choices.find(choice => choice.text === inputValue)
@@ -56,16 +68,14 @@ export const ChoiceBody: React.FC<IContinueBodyProps> = ({
       </div>
       <div>
         <ul>
-          {
-            choices.map((choice) => (
-              <li
-                className="typing-boody--choice"
-                key={choice.text}
-              >
-                {choice.text}
-              </li>
-            ))
-          }
+          {choices.map((choice) => (
+            <li
+              className="typing-boody--choice"
+              key={choice.text}
+            >
+              {choice.text}
+            </li>
+          ))}
         </ul>
         <input
           value={inputValue}

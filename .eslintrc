@@ -2,15 +2,173 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "import",
+    "import-newlines",
+    "destructuring-newline",
+    "react",
+    // "eslint-plugin-persnickety"
+    "@studysync/eslint-plugin-persnickety"
   ],
   "extends": [
     "eslint:recommended",
+    "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
   ],
   "rules": {
-    "no-console": 2, // Remember, this means error!
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "no-console": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "groups": [
+          "builtin",
+          "external",
+          "internal"
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "group": "builtin",
+            "pattern": "react",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ]
+      }
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": {
+          "minProperties": 2
+        },
+        "ObjectPattern": {
+          "minProperties": 2,
+          "consistent": true
+        },
+        "ImportDeclaration": {
+          "multiline": true
+        }
+      }
+    ],
+    "object-property-newline": "error",
+    "import-newlines/enforce": [
+      "error",
+      1
+    ],
+    "destructuring-newline/object-property-newline": "error",
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1,
+        "maxEOF": 0
+      }
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "no-trailing-spaces": "error",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "react/jsx-max-props-per-line": [
+      "error",
+      {
+        "maximum": 1,
+        "when": "multiline"
+      }
+    ],
+    "react/prop-types": "off",
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "parens-new-line",
+        "prop": "parens-new-line"
+      }
+    ],
+    "no-extra-parens": "off",
+    "@typescript-eslint/no-extra-parens": [
+      "error",
+      "all",
+      {
+        "ignoreJSX": "multi-line"
+      }
+    ],
+    "function-paren-newline": [
+      "error",
+      "multiline-arguments"
+    ],
+    "react/jsx-closing-bracket-location": [
+      "error",
+      "line-aligned"
+    ],
+    // "react/jsx-closing-tag-location": "error"
+    "react/jsx-child-element-spacing": "error",
+    "react/jsx-indent": [
+      "error",
+      2,
+      {
+        "checkAttributes": true
+      }
+    ],
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "closingSlash": "never",
+        "beforeSelfClosing": "always",
+        "afterOpening": "never",
+        "beforeClosing": "never"
+      }
+    ],
+    "@studysync/persnickety/jsx-child-location": "error",
+    "array-element-newline": [
+      "error",
+      {
+        "minItems": 2,
+        "multiline": false
+      }
+    ],
+    "array-bracket-newline": [
+      "error",
+      {
+        "multiline": true,
+        "minItems": 2
+      }
+    ],
+    "react/jsx-curly-newline": [
+      "error",
+      {
+        "multiline": "forbid",
+        "singleline": "forbid"
+      }
+    ],
+    "react/jsx-curly-spacing": [
+      "error",
+      {
+        "when": "never"
+      }
+    ]
   }
 }

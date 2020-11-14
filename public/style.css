@@ -48,3 +48,11 @@ a.disabled {
   color: red;
   cursor: not-allowed;
 }
+
+.highlighted {
+  color: green
+}
+
+.faded {
+  color: grey
+}

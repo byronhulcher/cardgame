@@ -2,18 +2,18 @@ import React, { useEffect } from 'react'
 
 import {
   useActions,
-  useAllValues
+  useAllValues,
 } from 'kea'
 
+import { DebugScene } from './components/DebugScene'
+import { Menu } from './components/Menu'
 import { SceneLogic } from './SceneLogic'
 import { useSceneQueue } from './SceneQueue'
 import { stageTestScene } from './TestSceneWithManager'
 import {
   ISceneActions,
-  ISceneValues
+  ISceneValues,
 } from './types'
-import { Menu } from './components/Menu'
-import { DebugScene } from './components/DebugScene'
 
 export const Scene: React.FC = () => {
   const sceneActions = useActions(SceneLogic) as ISceneActions

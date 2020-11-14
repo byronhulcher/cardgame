@@ -4,7 +4,7 @@ import {
   Background,
   Characters,
   IDialogProps,
-  ISceneActions
+  ISceneActions,
 } from './types'
 
 export const SceneLogic = kea({
@@ -17,16 +17,39 @@ export const SceneLogic = kea({
     updateDialog: (dialog) => ({ dialog }),
   }),
   reducers: () => ({
-    background: [Background.Default, {
-      setBackground: (_, { background }: { background: Background }) => background
-    }],
-    characters: [{}, {
-      setCharacters: (_, { characters }: { characters: Characters }) => characters,
-      updateCharacters: (currentCharacters: Characters, { characters }: { characters: Characters }) => ({ ...currentCharacters, ...characters })
-    }],
-    dialog: [{}, {
-      setDialog: (_, { dialog }: { dialog: IDialogProps }) => dialog,
-      updateDialog: (currentDialog: IDialogProps, { dialog }: { dialog: IDialogProps }) => ({ ...currentDialog, ...dialog })
-    }]
-  })
+    background: [
+      Background.Default,
+      { setBackground: (_, {
+        background,
+      }: { background: Background }) => background },
+    ],
+    characters: [
+      {},
+      {
+        setCharacters: (_, {
+          characters,
+        }: { characters: Characters }) => characters,
+        updateCharacters: (currentCharacters: Characters, {
+          characters,
+        }: { characters: Characters }) => ({
+          ...currentCharacters,
+          ...characters,
+        }),
+      },
+    ],
+    dialog: [
+      {},
+      {
+        setDialog: (_, {
+          dialog,
+        }: { dialog: IDialogProps }) => dialog,
+        updateDialog: (currentDialog: IDialogProps, {
+          dialog,
+        }: { dialog: IDialogProps }) => ({
+          ...currentDialog,
+          ...dialog,
+        }),
+      },
+    ],
+  }),
 })

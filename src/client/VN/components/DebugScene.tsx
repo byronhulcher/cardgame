@@ -4,7 +4,7 @@ import {
   Background,
   CharacterPosition,
   CharacterSprite,
-  ISceneValues
+  ISceneValues,
 } from '../types'
 
 export const DebugScene: React.FC<ISceneValues> = ({
@@ -12,8 +12,8 @@ export const DebugScene: React.FC<ISceneValues> = ({
   characters,
   dialog: {
     dialogBody,
-    dialogSpeaker
-  }
+    dialogSpeaker,
+  },
 }) => {
   return (
     <>
@@ -22,29 +22,26 @@ export const DebugScene: React.FC<ISceneValues> = ({
       <h3>
         <ul>
           {typeof characters[CharacterPosition.Left] !== "undefined" &&
-            <li>Left: {CharacterSprite[characters[CharacterPosition.Left]]}</li>
-          }
+            <li>Left: {CharacterSprite[characters[CharacterPosition.Left]]}</li>}
           {typeof characters[CharacterPosition.Center] !== "undefined" &&
-            <li>Center: {CharacterSprite[characters[CharacterPosition.Center]]}</li>
-          }
+            <li>Center: {CharacterSprite[characters[CharacterPosition.Center]]}</li>}
           {typeof characters[CharacterPosition.Right] !== "undefined" &&
-            <li>Right: {CharacterSprite[characters[CharacterPosition.Right]]}</li>
-          }
+            <li>Right: {CharacterSprite[characters[CharacterPosition.Right]]}</li>}
         </ul>
       </h3>
       <h2>Dialog:</h2>
       <ul>
-        {typeof dialogSpeaker !== "undefined" &&
+        {typeof dialogSpeaker !== "undefined" && (
           <li>
             <h3>Speaker: {dialogSpeaker}</h3>
           </li>
-        }
-        {typeof dialogBody !== "undefined" &&
+        )}
+        {typeof dialogBody !== "undefined" && (
           <li>
             <h3>Content:</h3>
             <div>{dialogBody}</div>
           </li>
-        }
+        )}
       </ul>
     </>
   )

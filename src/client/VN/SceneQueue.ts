@@ -1,3 +1,4 @@
+
 import { useRef } from 'react'
 
 import {
@@ -5,11 +6,12 @@ import {
   isLogicAction,
 } from './LogicActionQueue'
 import { ISceneActions } from './types'
-import {
-  ArgumentOf
-} from './utils'
+import { ArgumentOf } from './utils'
 
-const STOP_ACTIONS: (keyof ISceneActions)[] = ['setDialog', 'updateDialog']
+const STOP_ACTIONS: (keyof ISceneActions)[] = [
+  'setDialog',
+  'updateDialog',
+]
 
 export type MethodsWithTag<T> = { [k in keyof T]: (arg: ArgumentOf<T[k]>, tag?: string) => void }
 

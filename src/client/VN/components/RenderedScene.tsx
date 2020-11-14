@@ -4,16 +4,16 @@ import {
   Background,
   CharacterPosition,
   CharacterSprite,
-  ISceneValues
+  ISceneValues,
 } from '../types'
 
 export const RenderedScene: React.FC<ISceneValues> = ({
   background,
   dialog: {
     dialogBody,
-    dialogSpeaker
+    dialogSpeaker,
   },
-  characters
+  characters,
 }) => {
   return (
     <div className="rendered-scene">
@@ -22,36 +22,36 @@ export const RenderedScene: React.FC<ISceneValues> = ({
           {Background[background]}
         </div>
         <div className="rendered-scene--characters">
-          {typeof characters[CharacterPosition.Left] !== "undefined" &&
+          {typeof characters[CharacterPosition.Left] !== "undefined" && (
             <div className="rendered-scene--characters--left">
               {CharacterSprite[characters[CharacterPosition.Left]]}
             </div>
-          }
-          {typeof characters[CharacterPosition.Center] !== "undefined" &&
+          )}
+          {typeof characters[CharacterPosition.Center] !== "undefined" && (
             <div className="rendered-scene--characters--center">
               {CharacterSprite[characters[CharacterPosition.Center]]}
             </div>
-          }
-          {typeof characters[CharacterPosition.Right] !== "undefined" &&
+          )}
+          {typeof characters[CharacterPosition.Right] !== "undefined" && (
             <div className="rendered-scene--characters--right">
               {CharacterSprite[characters[CharacterPosition.Right]]}
             </div>
-          }
+          )}
         </div>
       </div>
       <div className="rendered-scene--dialog">
-        {typeof dialogBody !== "undefined" &&
+        {typeof dialogBody !== "undefined" && (
           <>
-            {typeof dialogSpeaker !== "undefined" &&
+            {typeof dialogSpeaker !== "undefined" && (
               <div className="rendered-scene--dialog--speaker">
                 {dialogSpeaker}
               </div>
-            }
+            )}
             <div className="rendered-scene--dialog--body">
               {dialogBody}
             </div>
           </>
-        }
+        )}
       </div>
     </div>
   )

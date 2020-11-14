@@ -40,8 +40,11 @@ export class LogicActionQueue<T extends LogicAction> {
       (accumulator, action) => ({
         ...accumulator,
         [action]: (...args: [...ArgumentsOf<T[typeof action]>]): void => {
-          this.push({ action, args } as LogicActionQueueItem<T>)
-        }
+          this.push({
+            action,
+            args,
+          } as LogicActionQueueItem<T>)
+        },
       }),
       {} as T
     )
@@ -50,7 +53,10 @@ export class LogicActionQueue<T extends LogicAction> {
   }
 
   push(sceneAction: QueueItem<T>): void {
-    this.queue = [...this.queue, sceneAction]
+    this.queue = [
+      ...this.queue,
+      sceneAction,
+    ]
   }
 
   tag(tag: string): void {
@@ -58,7 +64,10 @@ export class LogicActionQueue<T extends LogicAction> {
   }
 
   pop(): QueueItem<T> {
-    const [poppedAction, ...remainingQueue] = this.queue
+    const [
+      poppedAction,
+      ...remainingQueue
+    ] = this.queue
     if (typeof poppedAction !== "undefined") {
       if (isLogicAction(poppedAction)) {
         this.logicActions[poppedAction.action](...poppedAction.args)

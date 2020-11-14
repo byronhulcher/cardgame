@@ -6,23 +6,23 @@ import {
   CardData,
   CardGameActions,
   CardGameState,
-  Player
+  Player,
 } from '../types'
 
 const RenderedCard: React.FC<{ cardData: CardData, disabled: boolean, onClick: () => void }> = ({
   cardData,
   disabled,
-  onClick
+  onClick,
 }) => (
-    <div>
-      <a
-        className={`${disabled ? 'disabled' : ''}`}
-        onClick={disabled ? undefined : onClick}
-      >
-        {cardData.displayedName || Card[cardData.name]}
-      </a>
-    </div>
-  )
+  <div>
+    <a
+      className={`${disabled ? 'disabled' : ''}`}
+      onClick={disabled ? undefined : onClick}
+    >
+      {cardData.displayedName || Card[cardData.name]}
+    </a>
+  </div>
+)
 
 export const Hand: React.FC<{
   gameState: CardGameState,
@@ -31,36 +31,36 @@ export const Hand: React.FC<{
 }> = ({
   gameState,
   gameActions: {
-    playCard
+    playCard,
   },
-  player
+  player,
 }) => {
-    const {
-      activePlayer,
-      hands,
-    } = gameState
-    return (
-      <div>
-        <h3>Your hand</h3>
-        <h4>
-          <ul>
-            {
-              [...hands[player], Card.Gain1R].map((card, index) => {
-                const cardData = getCardData(card)
-                return (
-                  <li key={`card-${index}`} >
-                    <RenderedCard
-                      cardData={cardData}
-                      disabled={!(activePlayer == player && cardData.condition(gameState))}
-                      onClick={() => playCard(player, card)}
-                    />
-                  </li>
-                )
-              }
-              )
-            }
-          </ul>
-        </h4>
-      </div >
-    )
-  }
+  const {
+    activePlayer,
+    hands,
+  } = gameState
+  return (
+    <div>
+      <h3>Your hand</h3>
+      <h4>
+        <ul>
+          {[
+            ...hands[player],
+            Card.Gain1R,
+          ].map((card, index) => {
+            const cardData = getCardData(card)
+            return (
+              <li key={`card-${index}`}>
+                <RenderedCard
+                  cardData={cardData}
+                  disabled={!(activePlayer == player && cardData.condition(gameState))}
+                  onClick={() => playCard(player, card)}
+                />
+              </li>
+            )
+          })}
+        </ul>
+      </h4>
+    </div>
+  )
+}

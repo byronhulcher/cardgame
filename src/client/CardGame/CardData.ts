@@ -5,25 +5,24 @@ import {
   CardDataLibrary,
   ResourcePointsTuple,
   VictoryPointsTuple,
-  Player
+  Player,
 } from './types'
 import { getOpponent } from './utils'
 
 export const CARD_DATA_LIBRARY: CardDataLibrary = {
-  [Card.Gain1R]: {
-    updateResourcePoints: (current, player) => updatePointsForPlayer(current, player, 1)
-  },
+  [Card.Gain1R]: { updateResourcePoints: (current, player) => updatePointsForPlayer(current, player, 1) },
   [Card.Sacrifice4RGain6R]: {
-    condition: ({ activePlayer, resourcePoints }: CardGameState) => resourcePoints[activePlayer] >= 4,
-    updateResourcePoints: (current, player) => updatePointsForPlayer(current, player, 2)
+    condition: ({
+      activePlayer,
+      resourcePoints,
+    }: CardGameState) => resourcePoints[activePlayer] >= 4,
+    updateResourcePoints: (current, player) => updatePointsForPlayer(current, player, 2),
   },
-  [Card.Remove2R]: {
-    updateResourcePoints: (current, player) => updatePointsForPlayer(current, getOpponent(player), -1)
-  },
+  [Card.Remove2R]: { updateResourcePoints: (current, player) => updatePointsForPlayer(current, getOpponent(player), -1) },
   [Card.Sacrifice1RGain1V]: {
     updateResourcePoints: (current, player) => updatePointsForPlayer(current, player, -1),
-    updateVictoryPoints: (current, player) => updatePointsForPlayer(current, player, 1)
-  }
+    updateVictoryPoints: (current, player) => updatePointsForPlayer(current, player, 1),
+  },
 }
 
 export const getCardData: (cardName: Card) => CardData = (cardName) => {
@@ -31,9 +30,9 @@ export const getCardData: (cardName: Card) => CardData = (cardName) => {
   return {
     name: cardName,
     ...cardData,
-    updateResourcePoints: typeof cardData.updateResourcePoints === "undefined" ? ((points) => points) : cardData.updateResourcePoints,
-    updateVictoryPoints: typeof cardData.updateVictoryPoints === "undefined" ? ((points) => points) : cardData.updateVictoryPoints,
-    condition: typeof cardData.condition === "undefined" ? (() => true) : cardData.condition,
+    updateResourcePoints: typeof cardData.updateResourcePoints === "undefined" ? (points) => points : cardData.updateResourcePoints,
+    updateVictoryPoints: typeof cardData.updateVictoryPoints === "undefined" ? (points) => points : cardData.updateVictoryPoints,
+    condition: typeof cardData.condition === "undefined" ? () => true : cardData.condition,
   } as CardData
 
 }

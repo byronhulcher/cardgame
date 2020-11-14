@@ -44,7 +44,6 @@ export type DeckTuple = [Card[], Card[]]
 export type ResourcePointsTuple = [number, number]
 export type VictoryPointsTuple = [number, number]
 
-
 // The propertiees provided by our game's state
 export type CardGameState = {
   // effects: EffectTuple

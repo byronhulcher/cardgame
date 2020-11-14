@@ -1,12 +1,9 @@
 import React from 'react'
 
-
-import {
-  Link,
-} from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 export const Menu: React.FC<{ restartScene: () => void }> = ({
-  restartScene
+  restartScene,
 }) => {
   return (
     <div>
